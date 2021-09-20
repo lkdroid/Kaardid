@@ -6,22 +6,22 @@
 
 
     <changeSet id="20-09-2021" author="Ahto Nellis">
-        <createTable tableName="riigid">
+        <createTable tableName="countries">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="nimi" type="text">
+            <column name="name" type="text">
                 <constraints unique="true"/>
             </column>
-            <column name="pealinn" type="text"/>
-            <column name="rahvaarv" type="int"/>
-            <column name="pindala" type="int"/>
+            <column name="capital" type="text"/>
+            <column name="population" type="int"/>
+            <column name="area" type="int"/>
             <column name="hdi" type="double"/>
-            <column name="vesi" type="double"/>
-            <column name="tihedus" type="double"/>
-            <column name="korgus" type="int"/>
-            <column name="korgeimpunkt" type="int"/>
-            <column name="madalaimpunkt" type="int"/>
+            <column name="water" type="double"/>
+            <column name="density" type="double"/>
+            <column name="avgheight" type="int"/>
+            <column name="highestpoint" type="int"/>
+            <column name="lowestpoint" type="int"/>
         </createTable>
 
 
