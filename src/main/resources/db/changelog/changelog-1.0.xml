@@ -5,6 +5,28 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
 
+<changeSet id="20-09-2021" author="Ahto Nellis">
+<createTable tableName="riigid">
+    <column name="id" type="int" autoIncrement="true">
+        <constraints primaryKey="true"/>
+    </column>
+    <column name="nimi" type="text">
+        <constraints unique="true"/>
+    </column>
+    <column name="pealinn" type="text"/>
+    <column name="rahvaarv" type="int"/>
+    <column name="pindala" type="int"/>
+    <column name="hdi" type="double"/>
+    <column name="vesi" type="double"/>
+    <column name="tihedus" type="double"/>
+    <column name="korgus" type="int"/>
+    <column name="korgeimpunkt" type="int"/>
+    <column name="madalaimpunkt" type="int"/>
+</createTable>
+
+
+
+</changeSet>
 
 </databaseChangeLog>
 
