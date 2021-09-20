@@ -1,3 +1,3 @@
 public class kaardid {
-   String ivan = "Siin";
+    int ivan = 2;
 }
