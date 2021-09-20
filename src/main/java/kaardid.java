@@ -1,3 +1,3 @@
 public class kaardid {
-    int ivan = 2;
+    int ivan = 22;
 }
