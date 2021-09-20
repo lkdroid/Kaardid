@@ -5,28 +5,41 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
 
-<changeSet id="20-09-2021" author="Ahto Nellis">
-<createTable tableName="riigid">
-    <column name="id" type="int" autoIncrement="true">
-        <constraints primaryKey="true"/>
-    </column>
-    <column name="nimi" type="text">
-        <constraints unique="true"/>
-    </column>
-    <column name="pealinn" type="text"/>
-    <column name="rahvaarv" type="int"/>
-    <column name="pindala" type="int"/>
-    <column name="hdi" type="double"/>
-    <column name="vesi" type="double"/>
-    <column name="tihedus" type="double"/>
-    <column name="korgus" type="int"/>
-    <column name="korgeimpunkt" type="int"/>
-    <column name="madalaimpunkt" type="int"/>
-</createTable>
+    <changeSet id="20-09-2021" author="Ahto Nellis">
+        <createTable tableName="riigid">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="nimi" type="text">
+                <constraints unique="true"/>
+            </column>
+            <column name="pealinn" type="text"/>
+            <column name="rahvaarv" type="int"/>
+            <column name="pindala" type="int"/>
+            <column name="hdi" type="double"/>
+            <column name="vesi" type="double"/>
+            <column name="tihedus" type="double"/>
+            <column name="korgus" type="int"/>
+            <column name="korgeimpunkt" type="int"/>
+            <column name="madalaimpunkt" type="int"/>
+        </createTable>
 
 
-
-</changeSet>
+    </changeSet>
+    <changeSet id="2021-09-20" author="Ivan">
+        <createTable tableName="players">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="text"/>
+            <column name="points" type="int"/>
+            <column name="wins_nr" type="int"/>
+            <column name="moves_nr" type="int"/>
+            <column name="used_cards" type="int"/>
+            <column name="games_id" type="int"/>
+            <column name="last_asking" type="int"/>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>
 
