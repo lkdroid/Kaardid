@@ -28,6 +28,16 @@
     </changeSet>
 
     <changeSet id="2021-09-21" author="Ahto">
+        <createTable tableName="games">
+            <column name="games_id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="player1_id" type="int"/>
+            <column name="player2_id" type="int"/>
+            <column name="number_of_moves" type="int"/>
+            <column name="winner" type="int"/>
+        </createTable>
+
         <createTable tableName="players">
             <column name="players_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
@@ -43,16 +53,7 @@
     </changeSet>
 
     <changeSet id="2021-09-21" author="Ahto Nellis">
-        <createTable tableName="games">
-            <column name="games_id" type="int">
-                <constraints primaryKey="true"/>
-            </column>
-            <column name="player1_id" type="int"/>
-            <column name="player2_id" type="int"/>
-            <column name="number_of_moves" type="int"/>
-            <column name="winner" type="int"/>
-            
-        </createTable>
+
         
         <createTable tableName="cardsingame">
             <column name="cardsingame_id" type="int" autoIncrement="true">
