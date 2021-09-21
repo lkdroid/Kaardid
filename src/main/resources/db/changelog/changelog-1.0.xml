@@ -7,10 +7,10 @@
 
     <changeSet id="20-09-2021" author="Ahto Nellis">
         <createTable tableName="countries">
-            <column name="country_id" type="int" autoIncrement="true">
+            <column name="countries_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="countries_name" type="text">
+            <column name="country_name" type="text">
                 <constraints unique="true"/>
             </column>
             <column name="capital" type="text"/>
@@ -34,9 +34,9 @@
             </column>
             <column name="player_name" type="text"/>
             <column name="points" type="int"/>
-            <column name="wins_nr" type="int"/>
+            <column name="wins" type="int"/>
             <column name="game_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_players_games" references="games(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_players_games" references="games(games_id)"/>
             </column>
             <column name="move" type="boolean"/>
         </createTable>
@@ -45,7 +45,7 @@
         
         
         <createTable tableName="games">
-            <column name="game_id" type="int">
+            <column name="games_id" type="int">
                 <constraints primaryKey="true"/>
             </column>
             <column name="player1_id" type="int"/>
@@ -56,17 +56,17 @@
         </createTable>
         
         <createTable tableName="cardsingame">
-            <column name="cards_id" type="int" autoIncrement="true">
+            <column name="cardsingame_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="player_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_cardsingame_players" references="players(id)"/>
+                <constraints nullable="false" foreignKeyName="fk_cardsingame_players" references="players(players_id)"/>
             </column>
             <column name="game_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_cardsingame_games" references="games(games_id)"/>
             </column>
-            <column name="countries" type="text">
-                <constraints nullable="false" foreignKeyName="fk_cardsingame_countries" references="countries(id)"/>
+            <column name="country_id" type="text">
+                <constraints nullable="false" foreignKeyName="fk_cardsingame_countries" references="countries(countries_id)"/>
             </column>
 
         </createTable>
