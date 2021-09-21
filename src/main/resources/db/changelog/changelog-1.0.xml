@@ -7,7 +7,7 @@
 
     <changeSet id="20-09-2021" author="Ahto Nellis">
         <createTable tableName="countries">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="country_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="countries_name" type="text">
@@ -29,17 +29,16 @@
 
     <changeSet id="2021-09-21" author="Ahto">
         <createTable tableName="players">
-            <column name="id" type="int" autoIncrement="true">
+            <column name="players_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="player_name" type="text"/>
             <column name="points" type="int"/>
             <column name="wins_nr" type="int"/>
-            <column name="moves_nr" type="int"/>
             <column name="game_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_players_games" references="games(id)"/>
             </column>
-            <column name="last_asking" type="int"/>
+            <column name="move" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet id="2021-09-21" author="Ahto Nellis">
