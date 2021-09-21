@@ -24,11 +24,24 @@
             <column name="lowestpoint" type="int"/>
         </createTable>
 
-
     </changeSet>
-    <changeSet id="2021-09-20" author="Ivan">
+<!--    <changeSet id="2021-09-20" author="Ivan">-->
+<!--        <createTable tableName="players">-->
+<!--            <column name="id" type="int" autoIncrement="true">-->
+<!--                <constraints primaryKey="true"/>-->
+<!--            </column>-->
+<!--            <column name="name" type="text"/>-->
+<!--            <column name="points" type="int"/>-->
+<!--            <column name="wins_nr" type="int"/>-->
+<!--            <column name="moves_nr" type="int"/>-->
+<!--            <column name="used_cards" type="int"/>-->
+<!--            <column name="games_id" type="int"/>-->
+<!--            <column name="last_asking" type="int"/>-->
+<!--        </createTable>-->
+<!--    </changeSet>-->
+    <changeSet id="2021-09-21" author="Ahto">
         <createTable tableName="players">
-            <column name="id" type="int" >
+            <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="text"/>
@@ -40,7 +53,6 @@
             <column name="last_asking" type="int"/>
         </createTable>
     </changeSet>
-    
     <changeSet id="2021-09-21" author="Ahto Nellis">
         <createTable tableName="game">
             <column name="game_id" type="int">
