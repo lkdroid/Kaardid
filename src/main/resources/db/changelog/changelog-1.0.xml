@@ -41,9 +41,8 @@
             <column name="move" type="boolean"/>
         </createTable>
     </changeSet>
+
     <changeSet id="2021-09-21" author="Ahto Nellis">
-        
-        
         <createTable tableName="games">
             <column name="games_id" type="int">
                 <constraints primaryKey="true"/>
