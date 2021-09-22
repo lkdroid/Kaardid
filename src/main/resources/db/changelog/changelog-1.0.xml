@@ -48,7 +48,7 @@
             <column name="points" type="int"/>
             <column name="wins" type="int"/>
             <column name="game_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_players_games" references="games(games_id)"/>
+                <constraints  foreignKeyName="fk_players_games" references="games(games_id)"/>
             </column>
             <column name="move" type="boolean"/>
         </createTable>
