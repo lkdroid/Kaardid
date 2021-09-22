@@ -12,6 +12,22 @@ public class CardsService {
     private CardsRepository cardsRepository;
 
 
+    public Boolean uniqueName(String name) {
+       Boolean uniqueName = cardsRepository.uniqueName(name);
+        if (!uniqueName) {
+            return  true;
+
+        }
+        else {
+            return false;
 
 
+        }
+    }
+
+
+//    public String insertName(String name) {
+//        cardsRepository.insertName(name);
+//        return insertName(name);
+//    }
 }

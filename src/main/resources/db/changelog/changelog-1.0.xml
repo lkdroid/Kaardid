@@ -42,7 +42,9 @@
             <column name="players_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="player_name" type="text"/>
+            <column name="player_name" type="text">
+                <constraints unique="true"/>
+            </column>
             <column name="points" type="int"/>
             <column name="wins" type="int"/>
             <column name="game_id" type="int">
