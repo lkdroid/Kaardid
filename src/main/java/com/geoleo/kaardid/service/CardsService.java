@@ -13,16 +13,14 @@ public class CardsService {
 
 
     public Boolean uniqueName(String name) {
-       Boolean uniqueName = cardsRepository.uniqueName(name);
-        if (!uniqueName) {
-            return  true;
+       if (cardsRepository.uniqueName(name) == 0) {
+           return true;
+       }
+       else {
+           return false;
+       }
 
-        }
-        else {
-            return false;
-
-
-        }
+    }
     }
 
 
@@ -30,4 +28,4 @@ public class CardsService {
 //        cardsRepository.insertName(name);
 //        return insertName(name);
 //    }
-}
+

@@ -16,11 +16,11 @@ public class CardsRepository {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public boolean uniqueName(String name) {
-        String sql = "SELECT player_name = :name FROM players";
+    public Integer uniqueName(String name) {
+        String sql = "SELECT count (*) FROM players WHERE player_name = :name";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
-        return jdbcTemplate.queryForObject(sql, paramMap, boolean.class);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 
 
     }
