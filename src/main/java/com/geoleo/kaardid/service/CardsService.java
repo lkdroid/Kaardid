@@ -22,9 +22,8 @@ public class CardsService {
     }
 
 
-    public void insertName(String name) {
-        cardsRepository.insertName(name);
-
+    public Integer insertName(String name) {
+        return cardsRepository.insertName(name);
 
     }
 }

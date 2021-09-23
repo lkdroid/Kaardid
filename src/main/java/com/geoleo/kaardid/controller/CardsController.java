@@ -22,12 +22,13 @@ public class CardsController {
     }
 
     @PostMapping("insertname/{name}")
-    public void insertName(@PathVariable("name") String name) {
-        cardsService.insertName(name);
-
-
+    public Integer insertName(@PathVariable("name") String name) {
+        return cardsService.insertName(name);
 
     }
+
+//    @PostMapping("creategame")
+//    public Integer createGame
 
 
 // apidfuhgaidfuhg
