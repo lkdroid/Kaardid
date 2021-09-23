@@ -29,7 +29,7 @@
 
     <changeSet id="2021-09-21" author="Ahto">
         <createTable tableName="games">
-            <column name="games_id" type="int">
+            <column name="games_id" type="uuid" defaultValue="gen_random_uuid()">
                 <constraints primaryKey="true"/>
             </column>
             <column name="player1_id" type="int"/>
@@ -47,7 +47,7 @@
             </column>
             <column name="points" type="int"/>
             <column name="wins" type="int"/>
-            <column name="game_id" type="int">
+            <column name="game_id" type="uuid">
                 <constraints  foreignKeyName="fk_players_games" references="games(games_id)"/>
             </column>
             <column name="move" type="boolean"/>
@@ -56,7 +56,7 @@
 
     <changeSet id="2021-09-21" author="Ahto Nellis">
 
-        
+
         <createTable tableName="cardsingame">
             <column name="cardsingame_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
@@ -64,7 +64,7 @@
             <column name="player_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_cardsingame_players" references="players(players_id)"/>
             </column>
-            <column name="game_id" type="int">
+            <column name="game_id" type="uuid">
                 <constraints nullable="false" foreignKeyName="fk_cardsingame_games" references="games(games_id)"/>
             </column>
             <column name="country_id" type="int">
