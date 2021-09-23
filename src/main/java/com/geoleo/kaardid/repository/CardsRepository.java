@@ -25,17 +25,13 @@ public class CardsRepository {
 
     }
 
-//    public String insertName(String name) {
-//        String sql = "INSERT INTO players (player_name, points, wins, game_id, move) " +
-//                "VALUES (:name, :points, :wins, :move) ";
-//        Map<String, Object> paramMap = new HashMap<>();
-//        paramMap.put("name", name);
-//        paramMap.put("points", 0);
-//        paramMap.put("wins", 0);
-//        paramMap.put("move", true);
-//        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
-//
-//    }
+    public void insertName(String name) {
+        String sql = "INSERT INTO players (player_name) VALUES (:name) ";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("name", name);
+        jdbcTemplate.update(sql, paramMap);
+
+    }
 
 
 

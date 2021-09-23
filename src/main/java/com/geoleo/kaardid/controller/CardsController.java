@@ -21,13 +21,14 @@ public class CardsController {
 
     }
 
-//    @PostMapping("insertname/{name}")
-//        public String insertName(@PathVariable("name") String name) {
-//        return cardsService.insertName(name);
-//
-//
-//
-//    }
+    @PostMapping("insertname/{name}")
+    public void insertName(@PathVariable("name") String name) {
+        cardsService.insertName(name);
+
+
+
+    }
+
 
 
 

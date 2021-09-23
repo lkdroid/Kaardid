@@ -13,19 +13,19 @@ public class CardsService {
 
 
     public Boolean uniqueName(String name) {
-       if (cardsRepository.uniqueName(name) == 0) {
-           return true;
-       }
-       else {
-           return false;
-       }
+        if (cardsRepository.uniqueName(name) == 0) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
+
+
+    public void insertName(String name) {
+        cardsRepository.insertName(name);
+
+
     }
-
-
-//    public String insertName(String name) {
-//        cardsRepository.insertName(name);
-//        return insertName(name);
-//    }
+}
 
