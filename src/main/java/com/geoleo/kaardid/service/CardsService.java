@@ -1,10 +1,17 @@
 package com.geoleo.kaardid.service;
 
 import com.geoleo.kaardid.repository.CardsRepository;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
+
+
 
 public class CardsService {
 

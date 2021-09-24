@@ -32,3 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/resources/application-test.properties
+/src/main/resources/application-laur.properties
+/src/main/java/JwtTokenFilter.java
+/src/main/java/com/geoleo/kaardid/JwtTokenFilter.java
+/src/main/java/com/geoleo/kaardid/controller/LoginController.java
+/src/main/java/com/geoleo/kaardid/service/LoginService.java
