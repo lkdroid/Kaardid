@@ -34,13 +34,13 @@ public class CardsController {
 //    }
 
 
-    @GetMapping("checkgame/{name}/{playerid}")
-    public int checkGame(@PathVariable("name") String name,
-                         @PathVariable("playerid") Integer playerid) {
-        return cardsService.checkGame(name, playerid);
-
-
-    }
+//    @GetMapping("checkgame/{name}/{playerid}")
+//    public int checkGame(@PathVariable("name") String name,
+//                         @PathVariable("playerid") Integer playerid) {
+//        return cardsService.checkGame(name, playerid);
+//
+//
+//    }
 }
 
 
