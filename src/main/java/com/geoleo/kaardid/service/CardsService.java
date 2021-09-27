@@ -26,5 +26,15 @@ public class CardsService {
         return cardsRepository.insertName(name);
 
     }
+
+    public int checkGame(String name, Integer playerid) {
+        return cardsRepository.checkGame();
+
+    }
+
+//    public Integer createGame() {
+//        return cardsRepository.createGame();
+//
+//    }
 }
 

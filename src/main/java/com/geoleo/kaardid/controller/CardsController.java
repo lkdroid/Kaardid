@@ -28,13 +28,23 @@ public class CardsController {
     }
 
 //    @PostMapping("creategame")
-//    public Integer createGame
+//    public Integer createGame() {
+//        return cardsService.createGame();
+//
+//    }
 
 
-// apidfuhgaidfuhg
+    @GetMapping("checkgame/{name}/{playerid}")
+    public int checkGame(@PathVariable("name") String name,
+                         @PathVariable("playerid") Integer playerid) {
+        return cardsService.checkGame(name, playerid);
 
 
     }
+}
+
+
+
 
 
 

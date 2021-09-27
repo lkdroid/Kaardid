@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -41,6 +42,35 @@ public class CardsRepository {
     }
 
 
+    public Integer checkEmptyPlayer1() {
+        String sql = "SELECT games_id FROM games WHERE player1_id IS NULL ORDER BY random() * 1 LIMIT 1";
+        Map<String, Object> paramMap = new HashMap<>();
+         return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 
+    }
+    public Integer checkEmptyPlayer2() {
+        String sql = "SELECT games_id FROM games WHERE player2_id IS NULL ORDER BY random() * 1 LIMIT 1";
+        Map<String, Object> paramMap = new HashMap<>();
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+
+    }
+
+
+
+
+
+
+
+//    public Integer createGame() {
+//        String sql = "INSERT INTO games(games_id) VALUES (random()* 100+1)";
+//        Map<String, Object> paramMap = new HashMap<>();
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);
+//        return (Integer) keyHolder.getKeys().get("games_id");
+//
+//
+//
+//
+//    }
 }
 // kdjfg
