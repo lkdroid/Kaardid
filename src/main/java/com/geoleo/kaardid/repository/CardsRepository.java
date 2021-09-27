@@ -72,6 +72,8 @@ public class CardsRepository {
 
 
 
+
+
 //    public Integer createGame() {
 //        String sql = "INSERT INTO games(games_id) VALUES (random()* 100+1)";
 //        Map<String, Object> paramMap = new HashMap<>();

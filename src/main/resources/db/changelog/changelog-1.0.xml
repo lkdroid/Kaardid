@@ -34,6 +34,8 @@
             </column>
             <column name="player1_id" type="int"/>
             <column name="player2_id" type="int"/>
+            <column name="buddy_game" type="boolean"/>
+            <column name="ready" type="boolean"/>
             <column name="number_of_moves" type="int"/>
             <column name="winner" type="int"/>
         </createTable>

@@ -34,10 +34,14 @@ public class CardsService {
 
     }
 
-    public int checkGame(String name, Integer playerid) {
-        return cardsRepository.checkGame();
+//    public int checkGame(String name, Integer playerid) {
+//
+//    }
 
-    }
+//    public int checkGame(String name, Integer playerid) {
+//        return cardsRepository.checkGame();
+//
+//    }
 
 //    public Integer createGame() {
 //        return cardsRepository.createGame();
