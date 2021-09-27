@@ -45,15 +45,26 @@ public class CardsRepository {
     public Integer checkEmptyPlayer1() {
         String sql = "SELECT games_id FROM games WHERE player1_id IS NULL ORDER BY random() * 1 LIMIT 1";
         Map<String, Object> paramMap = new HashMap<>();
-         return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 
     }
+
     public Integer checkEmptyPlayer2() {
         String sql = "SELECT games_id FROM games WHERE player2_id IS NULL ORDER BY random() * 1 LIMIT 1";
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 
     }
+
+    public void setBuddyGametrue(String gameid) {
+        String sql = "UPDATE games SET buddycame = true WHERE games_id = :gameid";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameid", gameid);
+        jdbcTemplate.update(sql, paramMap);
+
+    }
+}
+
 
 
 
@@ -72,5 +83,5 @@ public class CardsRepository {
 //
 //
 //    }
-}
+
 // kdjfg
