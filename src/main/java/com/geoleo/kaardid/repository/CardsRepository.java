@@ -82,16 +82,22 @@ public class CardsRepository {
 
     }
 
-    public void createGame() {
-        String sql = "INSERT INTO games(move) VALUES (random() * 2";
+
+
+    public UUID createGame(Integer firstPlayerID, Boolean gameType) {
+        int randomMove = (Math.random() <= 0.5) ? 1 : 2;
+        String sql = "INSERT INTO games (player1_id, buddy_game, move) VALUES (:name, :isBuddyGame, :randomMove)";
         Map<String, Object> paramMap = new HashMap<>();
-        jdbcTemplate.update(sql, paramMap);
+        paramMap.put("name", firstPlayerID);
+        paramMap.put("isBuddyGame", gameType);
+        paramMap.put("randomMove", randomMove);
 
-
-
-
-
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);
+        UUID games_id = (UUID) keyHolder.getKeys().get("games_id");
+        return games_id;
     }
+
 
 
 

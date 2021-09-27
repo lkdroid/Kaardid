@@ -2,6 +2,7 @@ package com.geoleo.kaardid.service;
 
 import com.geoleo.kaardid.repository.CardsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -28,6 +29,20 @@ public class CardsService {
         return cardsRepository.insertName(name);
 
     }
+
+
+    public UUID checkGame(Integer firstplayerID, Boolean gameType) {
+        try {
+            return cardsRepository.checkEmptyPlayer2();
+        } catch (EmptyResultDataAccessException e) {
+            return cardsRepository.createGame(firstplayerID, gameType);
+        }
+    }
+
+
+        public UUID createGame(Integer firstPlayerID, Boolean gameType) {
+            return cardsRepository.createGame(firstPlayerID, gameType);
+        }
 
 //    public UUID checkGame(Integer playerid, String playername) {
 //        checkEmpty1 = cardsRepository.checkEmptyPlayer1();

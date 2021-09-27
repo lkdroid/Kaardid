@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 public class CardsController {
 
@@ -27,12 +29,11 @@ public class CardsController {
 
     }
 
-//    @PostMapping("creategame")
-//    public Integer createGame() {
-//        return cardsService.createGame();
-//
-//    }
-
+    @PostMapping("creategame/{name}/{gameType}")
+    public UUID createGame(@PathVariable("name") Integer firstPlayerID,
+                           @PathVariable("gameType") Boolean gameType) {
+        return cardsService.createGame(firstPlayerID, gameType);
+    }
 
 //    @GetMapping("checkgame/{name}/{playerid}")
 //    public int checkGame(@PathVariable("name") String name,
