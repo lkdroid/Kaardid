@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Repository
 
@@ -42,27 +43,65 @@ public class CardsRepository {
     }
 
 
-    public Integer checkEmptyPlayer1() {
+    public UUID checkEmptyPlayer1() {
         String sql = "SELECT games_id FROM games WHERE player1_id IS NULL ORDER BY random() * 1 LIMIT 1";
         Map<String, Object> paramMap = new HashMap<>();
-        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        return jdbcTemplate.queryForObject(sql, paramMap, UUID.class);
 
     }
 
-    public Integer checkEmptyPlayer2() {
+    public UUID checkEmptyPlayer2() {
         String sql = "SELECT games_id FROM games WHERE player2_id IS NULL ORDER BY random() * 1 LIMIT 1";
         Map<String, Object> paramMap = new HashMap<>();
-        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        return jdbcTemplate.queryForObject(sql, paramMap, UUID.class);
+
 
     }
 
-    public void setBuddyGametrue(String gameid) {
-        String sql = "UPDATE games SET buddycame = true WHERE games_id = :gameid";
+    public void setBuddyGametrue(UUID gameid) {
+        String sql = "UPDATE games SET buddy_game = true WHERE games_id = :gameid";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("gameid", gameid);
         jdbcTemplate.update(sql, paramMap);
 
     }
+
+    public void setgameReady(UUID gameid) {
+        String sql = "UPDATE games SET ready = true WHERE games_id = :gameid";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameid", gameid);
+        jdbcTemplate.update(sql, paramMap);
+
+    }
+
+    public void setMove(Integer playerid) {
+        String sql = "UPDATE players SET move = true WHERE players_id = :playerid";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("playerid", playerid);
+        jdbcTemplate.update(sql, paramMap);
+
+    }
+
+    public void createGame() {
+        String sql = "INSERT INTO games(move) VALUES (random() * 2";
+        Map<String, Object> paramMap = new HashMap<>();
+        jdbcTemplate.update(sql, paramMap);
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -74,16 +113,6 @@ public class CardsRepository {
 
 
 
-//    public Integer createGame() {
-//        String sql = "INSERT INTO games(games_id) VALUES (random()* 100+1)";
-//        Map<String, Object> paramMap = new HashMap<>();
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//        jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);
-//        return (Integer) keyHolder.getKeys().get("games_id");
-//
-//
-//
-//
-//    }
+
 
 // kdjfg

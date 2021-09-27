@@ -4,6 +4,8 @@ import com.geoleo.kaardid.repository.CardsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 
 public class CardsService {
@@ -27,18 +29,23 @@ public class CardsService {
 
     }
 
-//    public int checkGame(String name, Integer playerid) {
+//    public UUID checkGame(Integer playerid, String playername) {
+//        checkEmpty1 = cardsRepository.checkEmptyPlayer1();
+//        checkEmpty2 = cardsRepository.checkEmptyPlayer2();
 //
-//    }
+//        if (cardsRepository.checkEmptyPlayer1() == null && cardsRepository.checkEmptyPlayer2() == null) {
+//            return cardsRepository.createGame;
+//        }
+//        else if (cardsRepository.checkEmptyPlayer1()) {
+//
+//
+//
+//
+//        }
+    }
 
-//    public int checkGame(String name, Integer playerid) {
-//        return cardsRepository.checkGame();
-//
-//    }
 
-//    public Integer createGame() {
-//        return cardsRepository.createGame();
-//
-//    }
-}
+
+
+
 
