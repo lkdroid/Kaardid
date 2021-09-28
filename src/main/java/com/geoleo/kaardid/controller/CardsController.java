@@ -23,7 +23,7 @@ public class CardsController {
 
     }
 
-    @PostMapping("insertname/{name}")
+    @GetMapping("insertname/{name}")
     public Integer insertName(@PathVariable("name") String name) {
         return cardsService.insertName(name);
 
