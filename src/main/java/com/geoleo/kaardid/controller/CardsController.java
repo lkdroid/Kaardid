@@ -36,13 +36,23 @@ public class CardsController {
     }
 
     @GetMapping("checkgame/{playerID}/{gameType}")
-    public UUID checkGame(@PathVariable("name") String name,
-                         @PathVariable("playerid") Integer playerid) {
-        return cardsService.checkGame(name, playerid);
-
+    public UUID checkGame(@PathVariable("playerID") Integer ID,
+                          @PathVariable("gameType") Boolean gametype) {
+        return cardsService.checkGame(ID, gametype);
 
     }
-}
+
+    @GetMapping("joingame/{playerId}/{gameId}")
+    public void joinGame(@PathVariable("playerId") Integer playerId, @PathVariable("gameId") UUID gameId) {
+        cardsService.joinGame(playerId, gameId);
+    }
+
+    @GetMapping("checkready/{gameId}")
+        public boolean checkReady (@PathVariable("gameId") UUID gameId){
+        return cardsService.checkReady(gameId);
+        }
+    }
+
 
 
 

@@ -31,17 +31,35 @@ public class CardsService {
     }
 
 
-//    public UUID checkGame(Integer playerID, Boolean gameType) {
-//        try {
-//            return cardsRepository.checkEmptyPlayer2();
-//        } catch (EmptyResultDataAccessException e) {
-//            return cardsRepository.createGame(firstplayerID, gameType);
-//        }
-//}
+    public UUID checkGame(Integer playerID, Boolean gameType) {
+        try {
+            UUID gameid = cardsRepository.checkEmptyPlayer2();
+            cardsRepository.setGameReady(gameid);
+            cardsRepository.setPlayer2(playerID, gameid);
+            return gameid;
+        } catch (EmptyResultDataAccessException e) {
+            return cardsRepository.createGame(playerID, gameType);
+        }
+}
 
 
         public UUID createGame(Integer firstPlayerID, Boolean gameType) {
             return cardsRepository.createGame(firstPlayerID, gameType);
+        }
+
+        public String joinGame(Integer playerId, UUID gameId) {
+        if (cardsRepository.checkEmptyPlayerJoin(gameId)) {
+        cardsRepository.setPlayer2(playerId, gameId);
+        cardsRepository.setGameReady(gameId);
+        return "Mänguga ühinetud";}
+        else {
+            return "Mäng on täis";
+        }
+
+        }
+
+        public boolean checkReady(UUID gameId) {
+        return cardsRepository.checkReady(gameId);
         }
 
 //    public UUID checkGame(Integer playerid, String playername) {

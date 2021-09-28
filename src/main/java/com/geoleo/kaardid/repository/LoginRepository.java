@@ -1,3 +1,4 @@
+/*
 package com.geoleo.kaardid.repository;
 
 import com.geoleo.kaardid.JwtTokenFilter;
@@ -31,3 +32,4 @@ public class LoginRepository {
         return jdbcTemplate.queryForObject(sql, paramMap, String.class);
     }
 }
+*/

@@ -50,12 +50,32 @@ public class CardsRepository {
 //    }
 
     public UUID checkEmptyPlayer2() {
-        String sql = "SELECT games_id FROM games WHERE player2_id IS NULL ORDER BY random() * 1 LIMIT 1";
+        String sql = "SELECT games_id FROM games WHERE player2_id IS NULL AND game_type IS false ORDER BY random() * 1 LIMIT 1";
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.queryForObject(sql, paramMap, UUID.class);
+    }
 
+    public Boolean checkEmptyPlayerJoin(UUID gameId) {
+        String sql = "SELECT player2_id FROM games WHERE games_id= :gameId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameId", gameId);
+        Integer player2 = jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        if (player2 == null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setPlayer2(int playerid, UUID gameid) {
+        String sql = "UPDATE games SET player2_id = :plID WHERE games_id = :gmid";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gmid", gameid);
+        paramMap.put("plID", playerid);
+        jdbcTemplate.update(sql, paramMap);
 
     }
+
 
     public void setGameTypetrue(UUID gameid) {
         String sql = "UPDATE games SET buddy_game = true WHERE games_id = :gameid";
@@ -64,8 +84,9 @@ public class CardsRepository {
         jdbcTemplate.update(sql, paramMap);
 
     }
-    public boolean checkGameType(UUID gameid) {
-        String sql = "SELECT game_type FROM games WHERE games_id = :gameid";
+
+    public boolean checkReady(UUID gameid) {
+        String sql = "SELECT ready FROM games WHERE games_id = :gameid";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("games_id", gameid);
         return jdbcTemplate.queryForObject(sql, paramMap, boolean.class);
@@ -89,7 +110,6 @@ public class CardsRepository {
     }
 
 
-
     public UUID createGame(Integer firstPlayerID, Boolean gameType) {
         int randomMove = (Math.random() <= 0.5) ? 1 : 2;
         String sql = "INSERT INTO games (player1_id, game_type, move) VALUES (:playerId, :isGameType, :randomMove)";
@@ -105,26 +125,7 @@ public class CardsRepository {
     }
 
 
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
 
 
 // kdjfg
