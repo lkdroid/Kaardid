@@ -88,7 +88,7 @@ public class CardsRepository {
     public boolean checkReady(UUID gameid) {
         String sql = "SELECT ready FROM games WHERE games_id = :gameid";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("games_id", gameid);
+        paramMap.put("gameid", gameid);
         return jdbcTemplate.queryForObject(sql, paramMap, boolean.class);
 
     }
