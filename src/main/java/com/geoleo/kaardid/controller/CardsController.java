@@ -29,19 +29,19 @@ public class CardsController {
 
     }
 
-    @PostMapping("creategame/{name}/{gameType}")
-    public UUID createGame(@PathVariable("name") Integer firstPlayerID,
+    @PostMapping("creategame/{playerId}/{gameType}")
+    public UUID createGame(@PathVariable("playerId") Integer firstPlayerID,
                            @PathVariable("gameType") Boolean gameType) {
         return cardsService.createGame(firstPlayerID, gameType);
     }
 
-//    @GetMapping("checkgame/{name}/{playerid}")
-//    public int checkGame(@PathVariable("name") String name,
-//                         @PathVariable("playerid") Integer playerid) {
-//        return cardsService.checkGame(name, playerid);
-//
-//
-//    }
+    @GetMapping("checkgame/{playerID}/{gameType}")
+    public UUID checkGame(@PathVariable("name") String name,
+                         @PathVariable("playerid") Integer playerid) {
+        return cardsService.checkGame(name, playerid);
+
+
+    }
 }
 
 

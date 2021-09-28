@@ -31,13 +31,13 @@ public class CardsService {
     }
 
 
-    public UUID checkGame(Integer firstplayerID, Boolean gameType) {
-        try {
-            return cardsRepository.checkEmptyPlayer2();
-        } catch (EmptyResultDataAccessException e) {
-            return cardsRepository.createGame(firstplayerID, gameType);
-        }
-    }
+//    public UUID checkGame(Integer playerID, Boolean gameType) {
+//        try {
+//            return cardsRepository.checkEmptyPlayer2();
+//        } catch (EmptyResultDataAccessException e) {
+//            return cardsRepository.createGame(firstplayerID, gameType);
+//        }
+//}
 
 
         public UUID createGame(Integer firstPlayerID, Boolean gameType) {
