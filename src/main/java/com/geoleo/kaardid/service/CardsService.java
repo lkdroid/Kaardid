@@ -1,17 +1,13 @@
 package com.geoleo.kaardid.service;
 
 import com.geoleo.kaardid.repository.CardsRepository;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.UUID;
 
 @Service
-
-
 
 public class CardsService {
 
@@ -34,18 +30,37 @@ public class CardsService {
 
     }
 
-//    public int checkGame(String name, Integer playerid) {
-//
-//    }
 
-//    public int checkGame(String name, Integer playerid) {
-//        return cardsRepository.checkGame();
-//
-//    }
+//    public UUID checkGame(Integer playerID, Boolean gameType) {
+//        try {
+//            return cardsRepository.checkEmptyPlayer2();
+//        } catch (EmptyResultDataAccessException e) {
+//            return cardsRepository.createGame(firstplayerID, gameType);
+//        }
+//}
 
-//    public Integer createGame() {
-//        return cardsRepository.createGame();
+
+        public UUID createGame(Integer firstPlayerID, Boolean gameType) {
+            return cardsRepository.createGame(firstPlayerID, gameType);
+        }
+
+//    public UUID checkGame(Integer playerid, String playername) {
+//        checkEmpty1 = cardsRepository.checkEmptyPlayer1();
+//        checkEmpty2 = cardsRepository.checkEmptyPlayer2();
 //
-//    }
-}
+//        if (cardsRepository.checkEmptyPlayer1() == null && cardsRepository.checkEmptyPlayer2() == null) {
+//            return cardsRepository.createGame;
+//        }
+//        else if (cardsRepository.checkEmptyPlayer1()) {
+//
+//
+//
+//
+//        }
+    }
+
+
+
+
+
 
