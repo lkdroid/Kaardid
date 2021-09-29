@@ -30,7 +30,7 @@ public class CardsRepository {
     }
 
     public Integer insertName(String name) {
-        String sql = "INSERT INTO players (player_name) VALUES (:name) ";
+        String sql = "INSERT INTO players (player_name) VALUES (:name)";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
 
@@ -122,6 +122,15 @@ public class CardsRepository {
         jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);
         UUID games_id = (UUID) keyHolder.getKeys().get("games_id");
         return games_id;
+    }
+
+    public boolean checkNameId(String name, int playerId) {
+        String sql = "SELECT players_id FROM players WHERE player_name = :name";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("name", name);
+        int checkId = jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        if (checkId == playerId) {return true;}
+        else {return false;}
     }
 
 

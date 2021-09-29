@@ -51,6 +51,12 @@ public class CardsController {
         public boolean checkReady (@PathVariable("gameId") UUID gameId){
         return cardsService.checkReady(gameId);
         }
+
+        @GetMapping("checkNameId/{name}/{playerId}")
+        public boolean checkNameId(@PathVariable("name") String name, @PathVariable("playerId") int playerId){
+        return cardsService.checkNameId(name, playerId);
+
+        }
     }
 
 
