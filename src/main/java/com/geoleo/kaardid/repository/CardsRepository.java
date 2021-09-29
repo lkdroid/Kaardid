@@ -19,6 +19,7 @@ public class CardsRepository {
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
+    private UUID gameId;
 
     public Integer uniqueName(String name) {
         String sql = "SELECT count (*) FROM players WHERE player_name = :name";
@@ -132,6 +133,25 @@ public class CardsRepository {
         if (checkId == playerId) {return true;}
         else {return false;}
     }
+
+    public Integer checkWhoIsFirst(UUID gameId, Integer playerId) {
+        String sql = "SELECT player1_id FROM games WHERE games_id = :gameId and player1_id = :playerId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("playerId", playerId);
+        paramMap.put("gameId", gameId);
+      return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+
+    }
+
+
+    public Integer checkMove(UUID gameId) {
+        String sql = "SELECT move FROM games WHERE  games_id = :gameId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameId", gameId);
+       return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+
+    }
+
 
 
 }
