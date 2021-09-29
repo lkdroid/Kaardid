@@ -1,10 +1,12 @@
 package com.geoleo.kaardid.service;
 
+import com.geoleo.kaardid.controller.CountriesList;
 import com.geoleo.kaardid.repository.CardsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -64,6 +66,14 @@ public class CardsService {
 
     public boolean checkNameId(String name, Integer playerId) {
         return cardsRepository.checkNameId(name, playerId);
+    }
+
+    public CountriesList allCountryData(Integer countryId) {
+        return cardsRepository.allCountryData(countryId);
+    }
+
+    public void cardsInGameAdding(Integer playerId, UUID gameId, Integer countryId) {
+        cardsRepository.cardsInGameAdding(playerId, gameId, countryId);
     }
 }
 

@@ -1,6 +1,8 @@
 package com.geoleo.kaardid.repository;
 
 
+import com.geoleo.kaardid.controller.CardsController;
+import com.geoleo.kaardid.controller.CountriesList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -8,7 +10,9 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -132,6 +136,26 @@ public class CardsRepository {
         if (checkId == playerId) {return true;}
         else {return false;}
     }
+
+    public CountriesList allCountryData(Integer countryId) {
+        String sql = "SELECT * FROM countries WHERE countries_id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", countryId);
+        CountriesList answer = jdbcTemplate.queryForObject(sql, paramMap, new CardsController.countriesListRowMapper());
+        return answer;
+    }
+
+    public void cardsInGameAdding(Integer playerId, UUID gameId, Integer countryId) {
+        String sql = "INSERT INTO cardsingame (player_id, game_id, country_id) VALUES (:playerId, :gameId, :countryId)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("playerId", playerId);
+        paramMap.put("gameId", gameId);
+        paramMap.put("countryId", countryId);
+
+        jdbcTemplate.update(sql, paramMap);
+    }
+
+
 
 
 }
