@@ -22,7 +22,11 @@
             <column name="avgheight" type="int"/>
             <column name="highestpoint" type="int"/>
             <column name="lowestpoint" type="int"/>
-            <column name="c_code" type="int"/>
+            <column name="country_code" type="text"/>
+            <column name="highest_name" type="text"/>
+            <column name="lowest_name" type="text"/>
+            <column name="flag_colors" type="int"/>
+            <column name="contour_code" type="text"/>
         </createTable>
 
     </changeSet>
@@ -73,6 +77,8 @@
             <column name="country_id" type="int">
                 <constraints nullable="false" foreignKeyName="fk_cardsingame_countries" references="countries(countries_id)"/>
             </column>
+            <column name="value_chosen" type="text"/>
+            <column name="card_count" type="int"/>
 
         </createTable>
 
