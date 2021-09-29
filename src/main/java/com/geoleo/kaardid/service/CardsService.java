@@ -80,7 +80,16 @@ public class CardsService {
             }
         }
         catch (EmptyResultDataAccessException e) {
-               return false;
+            Integer move = cardsRepository.checkMove(gameId);
+            if (move == 2) {
+                return true;
+            }
+            else {
+                return false;
+
+            }
+
+
 
             }
 
