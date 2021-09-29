@@ -40,27 +40,33 @@ public class CardsService {
         } catch (EmptyResultDataAccessException e) {
             return cardsRepository.createGame(playerID, gameType);
         }
-}
+    }
 
 
-        public UUID createGame(Integer firstPlayerID, Boolean gameType) {
-            return cardsRepository.createGame(firstPlayerID, gameType);
-        }
+    public UUID createGame(Integer firstPlayerID, Boolean gameType) {
+        return cardsRepository.createGame(firstPlayerID, gameType);
+    }
 
-        public String joinGame(Integer playerId, UUID gameId) {
+    public String joinGame(Integer playerId, UUID gameId) {
         if (cardsRepository.checkEmptyPlayerJoin(gameId)) {
-        cardsRepository.setPlayer2(playerId, gameId);
-        cardsRepository.setGameReady(gameId);
-        return "Mänguga ühinetud";}
-        else {
+            cardsRepository.setPlayer2(playerId, gameId);
+            cardsRepository.setGameReady(gameId);
+            return "Mänguga ühinetud";
+        } else {
             return "Mäng on täis";
         }
 
-        }
+    }
 
-        public boolean checkReady(UUID gameId) {
+    public boolean checkReady(UUID gameId) {
         return cardsRepository.checkReady(gameId);
-        }
+    }
+
+    public boolean checkNameId(String name, Integer playerId) {
+        return cardsRepository.checkNameId(name, playerId);
+    }
+}
+
 
 //    public UUID checkGame(Integer playerid, String playername) {
 //        checkEmpty1 = cardsRepository.checkEmptyPlayer1();
@@ -75,7 +81,7 @@ public class CardsService {
 //
 //
 //        }
-    }
+
 
 
 
