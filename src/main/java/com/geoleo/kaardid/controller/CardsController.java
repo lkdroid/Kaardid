@@ -4,7 +4,6 @@ import com.geoleo.kaardid.service.CardsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
@@ -29,7 +28,7 @@ public class CardsController {
 
     }
 
-    @PostMapping("creategame/{playerId}/{gameType}")
+    @GetMapping ("creategame/{playerId}/{gameType}")
     public UUID createGame(@PathVariable("playerId") Integer firstPlayerID,
                            @PathVariable("gameType") Boolean gameType) {
         return cardsService.createGame(firstPlayerID, gameType);
@@ -57,7 +56,15 @@ public class CardsController {
         return cardsService.checkNameId(name, playerId);
 
         }
+
+    @GetMapping("checkwhoisfirst/{gameId}/{playerId}")
+    public Boolean checkWhoIsFirst(@PathVariable("gameId") UUID gameId,
+                                   @PathVariable("playerId") Integer playerId) {
+        return cardsService.checkWhoIsFirst(gameId, playerId);
+
     }
+
+}
 
 
 

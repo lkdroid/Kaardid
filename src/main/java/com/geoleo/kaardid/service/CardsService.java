@@ -59,13 +59,43 @@ public class CardsService {
     }
 
     public boolean checkReady(UUID gameId) {
+
         return cardsRepository.checkReady(gameId);
     }
 
     public boolean checkNameId(String name, Integer playerId) {
+
         return cardsRepository.checkNameId(name, playerId);
     }
-}
+
+    public Boolean checkWhoIsFirst(UUID gameId, Integer playerId) {
+        try {
+            Integer whois = cardsRepository.checkWhoIsFirst(gameId, playerId);
+            Integer move = cardsRepository.checkMove(gameId);
+
+            if (whois >= 1 && move == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        catch (EmptyResultDataAccessException e) {
+               return false;
+
+            }
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
 
 
 //    public UUID checkGame(Integer playerid, String playername) {
