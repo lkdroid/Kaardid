@@ -63,6 +63,15 @@ public class CardsController {
         return cardsService.checkWhoIsFirst(gameId, playerId);
 
     }
+    @GetMapping("randomcards/{gameId}")
+    public void randomCardsInGame(@PathVariable("gameId") UUID gameId) {
+        cardsService.randomCardsInGame(gameId);
+    }
+
+    @GetMapping("choose1card/{gameId}/{cardcount}")
+    public int choose1card(@PathVariable("cardcount") int cardCount,@PathVariable("gameId") UUID gameId) {
+        return cardsService.choose1card(gameId, cardCount);
+    }
 
 }
 
