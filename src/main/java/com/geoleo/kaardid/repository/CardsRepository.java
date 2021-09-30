@@ -135,8 +135,11 @@ public class CardsRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
         int checkId = jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
-        if (checkId == playerId) {return true;}
-        else {return false;}
+        if (checkId == playerId) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Integer checkWhoIsFirst(UUID gameId, Integer playerId) {
@@ -144,7 +147,7 @@ public class CardsRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("playerId", playerId);
         paramMap.put("gameId", gameId);
-      return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 
     }
 
@@ -153,7 +156,7 @@ public class CardsRepository {
         String sql = "SELECT move FROM games WHERE  games_id = :gameId";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("gameId", gameId);
-       return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 
     }
 
@@ -179,21 +182,21 @@ public class CardsRepository {
         jdbcTemplate.update(sqlinsertgameid, paramMapInsertGameId);
     }
 
-        public void randomCardsCount(UUID gameId, Integer i) {
+    public void randomCardsCount(UUID gameId, Integer i) {
 
-         String sqlselect= "SELECT cardsingame_id FROM cardsingame WHERE game_id = :gameId AND card_count IS NULL LIMIT 1";
-            Map<String, Object> paramMapSelect = new HashMap<>();
-            paramMapSelect.put("gameId", gameId);
-            Integer randomId;
+        String sqlselect = "SELECT cardsingame_id FROM cardsingame WHERE game_id = :gameId AND card_count IS NULL LIMIT 1";
+        Map<String, Object> paramMapSelect = new HashMap<>();
+        paramMapSelect.put("gameId", gameId);
+        Integer randomId;
         randomId = jdbcTemplate.queryForObject(sqlselect, paramMapSelect, Integer.class);
 
         String sqlcount = "UPDATE cardsingame SET card_count = :i WHERE cardsingame_id = :thisId";
-            Map<String, Object> paramMapCount = new HashMap<>();
-            paramMapCount.put("i", i);
-            paramMapCount.put("thisId", randomId);
-            jdbcTemplate.update(sqlcount, paramMapCount);
+        Map<String, Object> paramMapCount = new HashMap<>();
+        paramMapCount.put("i", i);
+        paramMapCount.put("thisId", randomId);
+        jdbcTemplate.update(sqlcount, paramMapCount);
 
-        }
+    }
 
     public int choose1card(UUID gameId, int cardCount) {
         String sql = "SELECT country_id FROM cardsingame WHERE card_count = :cardCount AND game_id = :gameId";
@@ -222,15 +225,27 @@ public class CardsRepository {
     private class CountryRowMapper implements RowMapper<Country> {
         @Override
         public Country mapRow(ResultSet resultSet, int i) throws SQLException {
-            Country country = new Country();
-            country.setId(resultSet.getInt("countries_id"));
-            country.setCountryName(resultSet.getString("country_name"));
-            country.setCapital(resultSet.getString("capital"));
-            return country;
+            Country result = new Country();
+            result.setId(resultSet.getInt("countries_id"));
+            result.setCountryName(resultSet.getString("country_name"));
+            result.setCapital(resultSet.getString("capital"));
+            result.setPopulation(resultSet.getInt("population"));
+            result.setArea(resultSet.getInt("area"));
+            result.setHdi(resultSet.getDouble("hdi"));
+            result.setWater(resultSet.getDouble("water"));
+            result.setDensity(resultSet.getDouble("density"));
+            result.setAvgHeight(resultSet.getInt("avgheight"));
+            result.setHighestPointNumber(resultSet.getInt("highestpoint"));
+            result.setLowestPointNumber(resultSet.getInt("lowestpoint"));
+            result.setCountryCode(resultSet.getString("country_code"));
+            result.setHighestName(resultSet.getString("highest_name"));
+            result.setLowestName(resultSet.getString("lowest_name"));
+            result.setFlagColors(resultSet.getInt("flag_colors"));
+            result.setContourCode(resultSet.getString("contour_code"));
+            return result;
         }
     }
 }
-
 
 
 // kdjfg

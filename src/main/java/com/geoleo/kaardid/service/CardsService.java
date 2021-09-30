@@ -125,22 +125,11 @@ public class CardsService {
     }
 
     public Boolean checkIfInputYes(UUID gameId, Integer cardCount) {
-         Integer playerId = cardsRepository.checkIfInputYes(gameId, cardCount);
-         if (playerId == null) {
-             return false;
-         }
-         else {
-             return true;
-
-
-         }
-
-
-
-
-
-
-
+        Integer playerId = cardsRepository.checkIfInputYes(gameId, cardCount);
+        if (playerId == null) {
+            return false;
+        } else {
+            return true;
 
 
         }
@@ -149,14 +138,7 @@ public class CardsService {
     }
 
 
-
-
-
-
-
-
-
-
+}
 
 
 //    public UUID checkGame(Integer playerid, String playername) {
