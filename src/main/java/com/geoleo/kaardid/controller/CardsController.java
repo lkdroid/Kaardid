@@ -81,11 +81,11 @@ public class CardsController {
     }
 
     @GetMapping("sendChosenField/{chosenField}/{playerId}/{gameId}/{cardcount}")
-    public void sendChosenField(@PathVariable("chosenField") String chosenField,
+    public PollResponse sendChosenField(@PathVariable("chosenField") String chosenField,
                                 @PathVariable("playerId") Integer playerId,
                                 @PathVariable("gameId") UUID gameId,
                                 @PathVariable("cardcount") Integer cardcount) {
-        cardsService.sendChosenField(chosenField, playerId, gameId, cardcount);
+        return cardsService.sendChosenField(chosenField, playerId, gameId, cardcount);
     }
 
 }

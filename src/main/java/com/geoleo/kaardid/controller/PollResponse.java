@@ -2,7 +2,8 @@ package com.geoleo.kaardid.controller;
 
 public class PollResponse {
     private Boolean result;
-    private String chosenType;
+    private String chosenField;
+    private Integer winner;
 
     public Boolean getResult() {
         return result;
@@ -12,11 +13,19 @@ public class PollResponse {
         this.result = result;
     }
 
-    public String getChosenType() {
-        return chosenType;
+    public String getChosenField() {
+        return chosenField;
     }
 
-    public void setChosenType(String chosenType) {
-        this.chosenType = chosenType;
+    public void setChosenField(String chosenField) {
+        this.chosenField = chosenField;
+    }
+
+    public Integer getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Integer winner) {
+        this.winner = winner;
     }
 }

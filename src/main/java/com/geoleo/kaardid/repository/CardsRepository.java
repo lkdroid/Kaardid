@@ -1,9 +1,9 @@
 package com.geoleo.kaardid.repository;
 
 
+import com.geoleo.kaardid.controller.PollResponse;
 import com.geoleo.kaardid.service.Country;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -206,12 +206,23 @@ public class CardsRepository {
         return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
     }
 
-    public int checkIfInputYes(UUID gameId, Integer cardCount) {
-        String sql = "SELECT player_id FROM cardsingame WHERE game_id = :gameId AND card_count = :cardCount";
+    public PollResponse checkIfInputYes(UUID gameId, Integer cardCount) {
+        String sql = "SELECT value_chosen, player_id  FROM cardsingame WHERE game_id = :gameId AND card_count = :cardCount";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("gameId", gameId);
         paramMap.put("cardCount", cardCount);
-        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        return jdbcTemplate.queryForObject(sql, paramMap, new ResponseRowMapper());
+    }
+
+    private class ResponseRowMapper implements RowMapper<PollResponse> {
+        @Override
+        public PollResponse mapRow(ResultSet resultSet, int i) throws SQLException {
+            PollResponse response = new PollResponse();
+            response.setChosenField(resultSet.getString("value_chosen"));
+            response.setWinner(resultSet.getInt("player_id"));
+
+            return response;
+        }
     }
 
 
@@ -220,6 +231,61 @@ public class CardsRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", countryId);
         return jdbcTemplate.queryForObject(sql, paramMap, new CountryRowMapper());
+    }
+
+    public int retrieveCountry(UUID gameId, Integer cardcount) {
+        String sql = "SELECT country_id FROM cardsingame WHERE game_id = :gameId AND card_count = :cardCount";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameId", gameId);
+        paramMap.put("cardCount", cardcount);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+    }
+
+    public int retrieve2ID(UUID gameId) {
+        String sql = "SELECT player2_id FROM games WHERE games_id = :gameId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameId", gameId);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+    }
+
+    public int retrieve1ID(UUID gameId) {
+        String sql = "SELECT player1_id FROM games WHERE games_id = :gameId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameId", gameId);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+    }
+
+    public void writeWinner(Integer playerId, UUID gameId, Integer cardcount, String chosenField) {
+        String sqlcount = "UPDATE cardsingame SET player_id = :playerId WHERE game_id = :gameId AND card_count = :cardcount";
+        Map<String, Object> paramMapCount = new HashMap<>();
+        paramMapCount.put("playerId", playerId);
+        paramMapCount.put("gameId", gameId);
+        paramMapCount.put("cardcount", cardcount);
+        jdbcTemplate.update(sqlcount, paramMapCount);
+
+        String sqloldpoints = "SELECT points FROM players WHERE players_id = :playerId";
+        Map<String, Object> paramMapOld = new HashMap<>();
+        paramMapOld.put("playerId", playerId);
+        try {
+            int oldPoints = jdbcTemplate.queryForObject(sqloldpoints, paramMapOld, Integer.class);
+            int newPoints = oldPoints + 1;
+
+            String sqlpoints = "UPDATE players SET points = :newPoints  WHERE players_id= :playerId";
+            Map<String, Object> paramMapPoints = new HashMap<>();
+            paramMapPoints.put("playerId", playerId);
+            paramMapPoints.put("newPoints", newPoints);
+            jdbcTemplate.update(sqlpoints, paramMapPoints);
+        } catch (NullPointerException e) {
+            int oldPoints = 0;
+            int newPoints = oldPoints + 1;
+
+            String sqlpoints = "UPDATE players SET points = :newPoints  WHERE players_id= :playerId";
+            Map<String, Object> paramMapPoints = new HashMap<>();
+            paramMapPoints.put("playerId", playerId);
+            paramMapPoints.put("newPoints", newPoints);
+            jdbcTemplate.update(sqlpoints, paramMapPoints);
+        }
+
     }
 
     private class CountryRowMapper implements RowMapper<Country> {
@@ -248,15 +314,40 @@ public class CardsRepository {
 
     public void sendChosenField(String chosenField, Integer playerId, UUID gameId, Integer cardcount) {
 
-        String sql="UPDATE cardsingame SET player_id = :playerId, value_chosen = :chosenField WHERE game_id = :gameId AND card_count= :cardcount";
+        String sql = "UPDATE cardsingame SET value_chosen = :chosenField WHERE game_id = :gameId AND card_count= :cardcount";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("playerId", playerId);
         paramMap.put("chosenField", chosenField);
         paramMap.put("gameId", gameId);
         paramMap.put("cardcount", cardcount);
         jdbcTemplate.update(sql, paramMap);
+
     }
+
+
+    public String retrieveSField(int countryId, String chosenField) {
+        String sql = "SELECT " + chosenField + " FROM countries WHERE countries_id = :countryId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("chosenField", chosenField);
+        paramMap.put("countryId", countryId);
+        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
+    }
+
+    public Double retrieveDField(int countryId, String chosenField) {
+        String sql = "SELECT " + chosenField + " FROM countries WHERE countries_id = :countryId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("chosenField", chosenField);
+        paramMap.put("countryId", countryId);
+        return jdbcTemplate.queryForObject(sql, paramMap, Double.class);
+    }
+
+    public Integer retrieveIField(int countryId, String chosenField) {
+
+        String sql = "SELECT " + chosenField + " FROM countries WHERE countries_id = :countryId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("countryId", countryId);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+    }
+
 }
 
 
-// kdjfg
