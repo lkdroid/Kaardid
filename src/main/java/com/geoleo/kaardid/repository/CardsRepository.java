@@ -1,13 +1,18 @@
 package com.geoleo.kaardid.repository;
 
 
+import com.geoleo.kaardid.service.Country;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -195,7 +200,7 @@ public class CardsRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("gameId", gameId);
         paramMap.put("cardCount", cardCount);
-        return jdbcTemplate.update(sql, paramMap);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
     }
 
     public int checkIfInputYes(UUID gameId, Integer cardCount) {
@@ -207,6 +212,23 @@ public class CardsRepository {
     }
 
 
+    public Country getCountry(int countryId) {
+        String sql = "SELECT * FROM countries WHERE countries_id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", countryId);
+        return jdbcTemplate.queryForObject(sql, paramMap, new CountryRowMapper());
+    }
+
+    private class CountryRowMapper implements RowMapper<Country> {
+        @Override
+        public Country mapRow(ResultSet resultSet, int i) throws SQLException {
+            Country country = new Country();
+            country.setId(resultSet.getInt("countries_id"));
+            country.setCountryName(resultSet.getString("country_name"));
+            country.setCapital(resultSet.getString("capital"));
+            return country;
+        }
+    }
 }
 
 

@@ -1,5 +1,6 @@
 package com.geoleo.kaardid.service;
 
+import com.geoleo.kaardid.controller.CardDataResponse;
 import com.geoleo.kaardid.repository.CardsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,12 +34,20 @@ public class CardsService {
 
     public UUID checkGame(Integer playerID, Boolean gameType) {
         try {
-            UUID gameid = cardsRepository.checkEmptyPlayer2();
-            cardsRepository.setGameReady(gameid);
-            cardsRepository.setPlayer2(playerID, gameid);
-            return gameid;
+            UUID gameId = cardsRepository.checkEmptyPlayer2();
+            cardsRepository.setGameReady(gameId);
+            cardsRepository.setPlayer2(playerID, gameId);
+            cardsRepository.randomCardsInGame(gameId);
+            Thread.sleep(1000);
+            for (int i = 1; i < 7; i++) {
+                cardsRepository.randomCardsCount(gameId, i);
+            }
+            return gameId;
         } catch (EmptyResultDataAccessException e) {
             return cardsRepository.createGame(playerID, gameType);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            throw new RuntimeException("viga", e);
         }
     }
 
@@ -51,6 +60,7 @@ public class CardsService {
         if (cardsRepository.checkEmptyPlayerJoin(gameId)) {
             cardsRepository.setPlayer2(playerId, gameId);
             cardsRepository.setGameReady(gameId);
+
             return "Mänguga ühinetud";
         } else {
             return "Mäng on täis";
@@ -102,8 +112,16 @@ public class CardsService {
     }
 
 
-    public int choose1card(UUID gameId, int cardCount) {
-        return cardsRepository.choose1card(gameId, cardCount);
+    public CardDataResponse choose1card(UUID gameId, int cardCount) {
+        CardDataResponse cardDataResponse = new CardDataResponse();
+
+        int card1Id = cardsRepository.choose1card(gameId, cardCount);
+        Country card1Data = cardsRepository.getCountry(card1Id);
+        int card2Id = cardsRepository.choose1card(gameId, cardCount + 1);
+        Country card2Data = cardsRepository.getCountry(card2Id);
+        cardDataResponse.setCard1(card1Data);
+        cardDataResponse.setCard2(card2Data);
+        return cardDataResponse;
     }
 
     public Boolean checkIfInputYes(UUID gameId, Integer cardCount) {

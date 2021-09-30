@@ -69,7 +69,7 @@ public class CardsController {
     }
 
     @GetMapping("choose1card/{gameId}/{cardcount}")
-    public int choose1card(@PathVariable("cardcount") int cardCount,@PathVariable("gameId") UUID gameId) {
+    public CardDataResponse choose1card(@PathVariable("cardcount") int cardCount,@PathVariable("gameId") UUID gameId) {
         return cardsService.choose1card(gameId, cardCount);
     }
 
