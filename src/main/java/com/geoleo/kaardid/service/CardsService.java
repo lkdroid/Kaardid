@@ -107,14 +107,21 @@ public class CardsService {
     }
 
     public Boolean checkIfInputYes(UUID gameId, Integer cardCount) {
-        try {
-            cardsRepository.checkIfInputYes(gameId, cardCount);
-            return true;
+         Integer playerId = cardsRepository.checkIfInputYes(gameId, cardCount);
+         if (playerId == null) {
+             return false;
+         }
+         else {
+             return true;
+
+
+         }
 
 
 
-        } catch (EmptyResultDataAccessException e) {
-            return false;
+
+
+
 
 
 
@@ -122,7 +129,7 @@ public class CardsService {
 
 
     }
-}
+
 
 
 
