@@ -95,8 +95,19 @@ public class CardsService {
 
         }
 
+        public void randomCardsInGame(UUID gameId) {
+        cardsRepository.randomCardsInGame(gameId);
 
+        for (int i = 1; i < 6; i++){
+        cardsRepository.randomCardsCount(gameId, i);}
+
+        }
+
+
+    public int choose1card(UUID gameId, int cardCount) {
+        return cardsRepository.choose1card(gameId, cardCount);
     }
+}
 
 
 
