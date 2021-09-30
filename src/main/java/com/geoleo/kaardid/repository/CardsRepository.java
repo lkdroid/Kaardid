@@ -245,6 +245,17 @@ public class CardsRepository {
             return result;
         }
     }
+
+    public void sendChosenField(String chosenField, Integer playerId, UUID gameId, Integer cardcount) {
+
+        String sql="UPDATE cardsingame SET player_id = :playerId, value_chosen = :chosenField WHERE game_id = :gameId AND card_count= :cardcount";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("playerId", playerId);
+        paramMap.put("chosenField", chosenField);
+        paramMap.put("gameId", gameId);
+        paramMap.put("cardcount", cardcount);
+        jdbcTemplate.update(sql, paramMap);
+    }
 }
 
 

@@ -28,7 +28,7 @@ public class CardsController {
 
     }
 
-    @GetMapping ("creategame/{playerId}/{gameType}")
+    @GetMapping("creategame/{playerId}/{gameType}")
     public UUID createGame(@PathVariable("playerId") Integer firstPlayerID,
                            @PathVariable("gameType") Boolean gameType) {
         return cardsService.createGame(firstPlayerID, gameType);
@@ -47,15 +47,15 @@ public class CardsController {
     }
 
     @GetMapping("checkready/{gameId}")
-        public boolean checkReady (@PathVariable("gameId") UUID gameId){
+    public boolean checkReady(@PathVariable("gameId") UUID gameId) {
         return cardsService.checkReady(gameId);
-        }
+    }
 
-        @GetMapping("checkNameId/{name}/{playerId}")
-        public boolean checkNameId(@PathVariable("name") String name, @PathVariable("playerId") int playerId){
+    @GetMapping("checkNameId/{name}/{playerId}")
+    public boolean checkNameId(@PathVariable("name") String name, @PathVariable("playerId") int playerId) {
         return cardsService.checkNameId(name, playerId);
 
-        }
+    }
 
     @GetMapping("checkwhoisfirst/{gameId}/{playerId}")
     public Boolean checkWhoIsFirst(@PathVariable("gameId") UUID gameId,
@@ -63,22 +63,29 @@ public class CardsController {
         return cardsService.checkWhoIsFirst(gameId, playerId);
 
     }
+
     @GetMapping("randomcards/{gameId}")
     public void randomCardsInGame(@PathVariable("gameId") UUID gameId) {
         cardsService.randomCardsInGame(gameId);
     }
 
     @GetMapping("choose1card/{gameId}/{cardcount}")
-    public CardDataResponse choose1card(@PathVariable("cardcount") int cardCount,@PathVariable("gameId") UUID gameId) {
+    public CardDataResponse choose1card(@PathVariable("cardcount") int cardCount, @PathVariable("gameId") UUID gameId) {
         return cardsService.choose1card(gameId, cardCount);
     }
 
     @GetMapping("checkIfInputYes/{gameid}/{cardcount}")
-    public Boolean checkIfInputYes(@PathVariable("gameid") UUID gameId,
+    public PollResponse checkIfInputYes(@PathVariable("gameid") UUID gameId,
                                    @PathVariable("cardcount") Integer cardCount) {
         return cardsService.checkIfInputYes(gameId, cardCount);
+    }
 
-
+    @GetMapping("sendChosenField/{chosenField}/{playerId}/{gameId}/{cardcount}")
+    public void sendChosenField(@PathVariable("chosenField") String chosenField,
+                                @PathVariable("playerId") Integer playerId,
+                                @PathVariable("gameId") UUID gameId,
+                                @PathVariable("cardcount") Integer cardcount) {
+        cardsService.sendChosenField(chosenField, playerId, gameId, cardcount);
     }
 
 }

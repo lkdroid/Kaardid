@@ -1,6 +1,7 @@
 package com.geoleo.kaardid.service;
 
 import com.geoleo.kaardid.controller.CardDataResponse;
+import com.geoleo.kaardid.controller.PollResponse;
 import com.geoleo.kaardid.repository.CardsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -124,17 +125,24 @@ public class CardsService {
         return cardDataResponse;
     }
 
-    public Boolean checkIfInputYes(UUID gameId, Integer cardCount) {
-        Integer playerId = cardsRepository.checkIfInputYes(gameId, cardCount);
-        if (playerId == null) {
-            return false;
-        } else {
-            return true;
-
-
+    public PollResponse checkIfInputYes(UUID gameId, Integer cardCount) {
+        PollResponse pollResponse = new PollResponse();
+        try {
+            Integer playerId = cardsRepository.checkIfInputYes(gameId, cardCount);
+            if (playerId > 0) {
+                pollResponse.setResult(true);
+            } else {
+                pollResponse.setResult(false);
+            }
+            return pollResponse;
+        } catch (NullPointerException e) {
+            pollResponse.setResult(false);
+            return pollResponse;
         }
+    }
 
-
+    public void sendChosenField(String chosenField, Integer playerId, UUID gameId, Integer cardcount) {
+        cardsRepository.sendChosenField(chosenField, playerId, gameId, cardcount);
     }
 
 
