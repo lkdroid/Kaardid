@@ -1,5 +1,6 @@
 package com.geoleo.kaardid.service;
 
+import com.geoleo.kaardid.controller.CountriesList;
 import com.geoleo.kaardid.repository.CardsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -78,44 +79,39 @@ public class CardsService {
             } else {
                 return false;
             }
-        }
-        catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             Integer move = cardsRepository.checkMove(gameId);
             if (move == 2) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
 
             }
 
 
-
-            }
-
         }
 
-        public void randomCardsInGame(UUID gameId) {
+    }
+
+    public void randomCardsInGame(UUID gameId) {
         cardsRepository.randomCardsInGame(gameId);
 
-        for (int i = 1; i < 6; i++){
-        cardsRepository.randomCardsCount(gameId, i);}
-
+        for (int i = 1; i < 6; i++) {
+            cardsRepository.randomCardsCount(gameId, i);
         }
+
+    }
 
 
     public int choose1card(UUID gameId, int cardCount) {
+
         return cardsRepository.choose1card(gameId, cardCount);
     }
+
+    public CountriesList allCountryData(Integer countryId) {
+        return cardsRepository.allCountryData(countryId);
+    }
 }
-
-
-
-
-
-
-
-
 
 
 //    public UUID checkGame(Integer playerid, String playername) {

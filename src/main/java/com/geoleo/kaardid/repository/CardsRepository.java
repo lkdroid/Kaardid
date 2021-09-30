@@ -1,6 +1,8 @@
 package com.geoleo.kaardid.repository;
 
 
+import com.geoleo.kaardid.controller.CardsController;
+import com.geoleo.kaardid.controller.CountriesList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -197,8 +199,15 @@ public class CardsRepository {
         paramMap.put("cardCount", cardCount);
         return jdbcTemplate.update(sql, paramMap);
     }
+
+    public CountriesList allCountryData(Integer countryId) {
+        String sql = "SELECT * FROM countries WHERE countries_id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", countryId);
+        CountriesList answer = jdbcTemplate.queryForObject(sql, paramMap, new CardsController.countriesListRowMapper());
+        return answer;
+    }
+
 }
 
 
-
-// kdjfg
