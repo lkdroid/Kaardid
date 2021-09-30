@@ -69,13 +69,13 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="player_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_cardsingame_players" references="players(players_id)"/>
+                <constraints foreignKeyName="fk_cardsingame_players" references="players(players_id)"/>
             </column>
             <column name="game_id" type="uuid">
-                <constraints nullable="false" foreignKeyName="fk_cardsingame_games" references="games(games_id)"/>
+                <constraints foreignKeyName="fk_cardsingame_games" references="games(games_id)"/>
             </column>
             <column name="country_id" type="int">
-                <constraints nullable="false" foreignKeyName="fk_cardsingame_countries" references="countries(countries_id)"/>
+                <constraints foreignKeyName="fk_cardsingame_countries" references="countries(countries_id)"/>
             </column>
             <column name="value_chosen" type="text"/>
             <column name="card_count" type="int"/>
