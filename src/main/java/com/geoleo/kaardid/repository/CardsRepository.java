@@ -208,7 +208,7 @@ public class CardsRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("gameId", gameId);
         paramMap.put("cardCount", cardCount);
-        return jdbcTemplate.update(sql, paramMap);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
     }
 
 
