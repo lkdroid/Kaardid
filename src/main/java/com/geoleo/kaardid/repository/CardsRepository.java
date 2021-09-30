@@ -132,8 +132,11 @@ public class CardsRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("name", name);
         int checkId = jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
-        if (checkId == playerId) {return true;}
-        else {return false;}
+        if (checkId == playerId) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public Integer checkWhoIsFirst(UUID gameId, Integer playerId) {
@@ -141,7 +144,7 @@ public class CardsRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("playerId", playerId);
         paramMap.put("gameId", gameId);
-      return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 
     }
 
@@ -150,7 +153,7 @@ public class CardsRepository {
         String sql = "SELECT move FROM games WHERE  games_id = :gameId";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("gameId", gameId);
-       return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
 
     }
 
@@ -176,21 +179,20 @@ public class CardsRepository {
         jdbcTemplate.update(sqlinsertgameid, paramMapInsertGameId);
     }
 
-        public void randomCardsCount(UUID gameId, Integer i) {
+    public void randomCardsCount(UUID gameId, Integer i) {
 
-         String sqlselect= "SELECT cardsingame_id FROM cardsingame WHERE game_id = :gameId AND card_count IS NULL LIMIT 1";
-            Map<String, Object> paramMapSelect = new HashMap<>();
-            paramMapSelect.put("gameId", gameId);
-            Integer randomId;
+        String sqlselect = "SELECT cardsingame_id FROM cardsingame WHERE game_id = :gameId AND card_count IS NULL LIMIT 1";
+        Map<String, Object> paramMapSelect = new HashMap<>();
+        paramMapSelect.put("gameId", gameId);
+        Integer randomId;
         randomId = jdbcTemplate.queryForObject(sqlselect, paramMapSelect, Integer.class);
 
         String sqlcount = "UPDATE cardsingame SET card_count = :i WHERE cardsingame_id = :thisId";
-            Map<String, Object> paramMapCount = new HashMap<>();
-            paramMapCount.put("i", i);
-            paramMapCount.put("thisId", randomId);
-            jdbcTemplate.update(sqlcount, paramMapCount);
-
-        }
+        Map<String, Object> paramMapCount = new HashMap<>();
+        paramMapCount.put("i", i);
+        paramMapCount.put("thisId", randomId);
+        jdbcTemplate.update(sqlcount, paramMapCount);
+    }
 
     public int choose1card(UUID gameId, int cardCount) {
         String sql = "SELECT country_id FROM cardsingame WHERE card_count = :cardCount AND game_id = :gameId";
