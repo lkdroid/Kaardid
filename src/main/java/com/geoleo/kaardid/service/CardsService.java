@@ -78,36 +78,52 @@ public class CardsService {
             } else {
                 return false;
             }
-        }
-        catch (EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             Integer move = cardsRepository.checkMove(gameId);
             if (move == 2) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
 
             }
 
 
-
-            }
-
         }
 
-        public void randomCardsInGame(UUID gameId) {
+    }
+
+    public void randomCardsInGame(UUID gameId) {
         cardsRepository.randomCardsInGame(gameId);
 
-        for (int i = 1; i < 6; i++){
-        cardsRepository.randomCardsCount(gameId, i);}
-
+        for (int i = 1; i < 6; i++) {
+            cardsRepository.randomCardsCount(gameId, i);
         }
+
+    }
 
 
     public int choose1card(UUID gameId, int cardCount) {
         return cardsRepository.choose1card(gameId, cardCount);
     }
+
+    public Boolean checkIfInputYes(UUID gameId, Integer cardCount) {
+        try {
+            cardsRepository.checkIfInputYes(gameId, cardCount);
+            return true;
+
+
+
+        } catch (EmptyResultDataAccessException e) {
+            return false;
+
+
+
+        }
+
+
+    }
 }
+
 
 
 
