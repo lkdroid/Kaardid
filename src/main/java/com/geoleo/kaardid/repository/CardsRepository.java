@@ -153,8 +153,52 @@ public class CardsRepository {
     }
 
 
+    public void writepolling(UUID gameId, Integer nr) {
+        String sql = "UPDATE games SET checkpolling = :nr WHERE games_id = :gameId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameId", gameId);
+        paramMap.put("nr", nr);
+        jdbcTemplate.update(sql, paramMap);
 
+    }
+
+    public void randomCardsInGame(UUID gameId) {
+
+        String sqlinsert = "INSERT INTO cardsingame (country_id) SELECT countries_id FROM countries ORDER BY random()";
+        Map<String, Object> paramMapInsert = new HashMap<>();
+        jdbcTemplate.update(sqlinsert, paramMapInsert);
+
+        String sqlinsertgameid = "UPDATE cardsingame SET game_id = :gameId WHERE card_count IS NULL";
+        Map<String, Object> paramMapInsertGameId = new HashMap<>();
+        paramMapInsertGameId.put("gameId", gameId);
+        jdbcTemplate.update(sqlinsertgameid, paramMapInsertGameId);
+    }
+
+        public void randomCardsCount(UUID gameId, Integer i) {
+
+         String sqlselect= "SELECT cardsingame_id FROM cardsingame WHERE game_id = :gameId AND card_count IS NULL LIMIT 1";
+            Map<String, Object> paramMapSelect = new HashMap<>();
+            paramMapSelect.put("gameId", gameId);
+            Integer randomId;
+        randomId = jdbcTemplate.queryForObject(sqlselect, paramMapSelect, Integer.class);
+
+        String sqlcount = "UPDATE cardsingame SET card_count = :i WHERE cardsingame_id = :thisId";
+            Map<String, Object> paramMapCount = new HashMap<>();
+            paramMapCount.put("i", i);
+            paramMapCount.put("thisId", randomId);
+            jdbcTemplate.update(sqlcount, paramMapCount);
+
+        }
+
+    public int choose1card(UUID gameId, int cardCount) {
+        String sql = "SELECT country_id FROM cardsingame WHERE card_count = :cardCount AND game_id = :gameId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameId", gameId);
+        paramMap.put("cardCount", cardCount);
+        return jdbcTemplate.update(sql, paramMap);
+    }
 }
+
 
 
 // kdjfg
