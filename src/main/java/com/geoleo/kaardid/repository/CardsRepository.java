@@ -197,6 +197,16 @@ public class CardsRepository {
         paramMap.put("cardCount", cardCount);
         return jdbcTemplate.update(sql, paramMap);
     }
+
+    public int checkIfInputYes(UUID gameId, Integer cardCount) {
+        String sql = "SELECT player_id FROM cardsingame WHERE game_id = :gameId AND card_count = :cardCount";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameId", gameId);
+        paramMap.put("cardCount", cardCount);
+        return jdbcTemplate.update(sql, paramMap);
+    }
+
+
 }
 
 

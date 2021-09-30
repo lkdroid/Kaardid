@@ -73,6 +73,14 @@ public class CardsController {
         return cardsService.choose1card(gameId, cardCount);
     }
 
+    @GetMapping("checkIfInputYes/{gameid}/{cardcount}")
+    public Boolean checkIfInputYes(@PathVariable("gameid") UUID gameId,
+                                   @PathVariable("cardcount") Integer cardCount) {
+        return cardsService.checkIfInputYes(gameId, cardCount);
+
+
+    }
+
 }
 
 
