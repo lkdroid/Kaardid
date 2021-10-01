@@ -5,6 +5,7 @@ import com.geoleo.kaardid.service.Country;
 public class CardDataResponse {
     private Country card1;
     private Country card2;
+    private boolean moreTurns;
 
     public Country getCard1() {
         return card1;
@@ -20,5 +21,13 @@ public class CardDataResponse {
 
     public void setCard2(Country card2) {
         this.card2 = card2;
+    }
+
+    public void setMoreTurns(boolean moreTurns) {
+        this.moreTurns = moreTurns;
+    }
+
+    public boolean getMoreTurns() {
+        return moreTurns;
     }
 }

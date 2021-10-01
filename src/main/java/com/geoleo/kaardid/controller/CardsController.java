@@ -88,6 +88,13 @@ public class CardsController {
         return cardsService.sendChosenField(chosenField, playerId, gameId, cardcount);
     }
 
+    @GetMapping("changeMove/{gameId}")
+        public void changeMove(@PathVariable("gameId") UUID gameId){
+            cardsService.changeMove(gameId);
+        }
+
+
+
 }
 
 

@@ -206,6 +206,17 @@ public class CardsRepository {
         return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
     }
 
+
+    public boolean doMoreCardsExist(UUID gameId, int cardCount) {
+        String sql = "SELECT count(*) FROM cardsingame WHERE card_count =:cardCount AND game_id = :gameId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("gameId", gameId);
+        paramMap.put("cardCount", cardCount);
+        int count = jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+        return count > 0;
+    }
+
+
     public PollResponse checkIfInputYes(UUID gameId, Integer cardCount) {
         String sql = "SELECT value_chosen, player_id  FROM cardsingame WHERE game_id = :gameId AND card_count = :cardCount";
         Map<String, Object> paramMap = new HashMap<>();
@@ -347,6 +358,26 @@ public class CardsRepository {
         paramMap.put("countryId", countryId);
         return jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
     }
+
+    public void changeMove(UUID gameId, int move) {
+        if (move == 1) {
+            int newmove = 2;
+            String sql = "UPDATE games SET move = :move WHERE games_id = :gameId";
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("move", newmove);
+            paramMap.put("gameId", gameId);
+            jdbcTemplate.update(sql, paramMap);
+        } else {
+            int newmove = 1;
+            String sql = "UPDATE games SET move = :move WHERE games_id = :gameId";
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("move", newmove);
+            paramMap.put("gameId", gameId);
+            jdbcTemplate.update(sql, paramMap);
+        }
+
+    }
+
 
 }
 

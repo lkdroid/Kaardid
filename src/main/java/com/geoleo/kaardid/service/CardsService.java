@@ -120,8 +120,10 @@ public class CardsService {
         Country card1Data = cardsRepository.getCountry(card1Id);
         int card2Id = cardsRepository.choose1card(gameId, cardCount + 1);
         Country card2Data = cardsRepository.getCountry(card2Id);
+        boolean doMoreCardsExist = cardsRepository.doMoreCardsExist(gameId, cardCount + 3);
         cardDataResponse.setCard1(card1Data);
         cardDataResponse.setCard2(card2Data);
+        cardDataResponse.setMoreTurns(doMoreCardsExist);
         return cardDataResponse;
     }
 
@@ -134,6 +136,7 @@ public class CardsService {
             } else {
                 pollResponse.setResult(false);
             }
+
             return pollResponse;
         } catch (NullPointerException e) {
             PollResponse pollResponse = cardsRepository.checkIfInputYes(gameId, cardCount);
@@ -158,7 +161,7 @@ public class CardsService {
                     Integer player2Id = cardsRepository.retrieve2ID(gameId);
                     cardsRepository.writeWinner(player2Id, gameId, cardcount, chosenField);
                 }
-            } else if (chosenField == "hdi" || chosenField == "water" || chosenField == "density") {
+            } else if (chosenField.equals("hdi") || chosenField.equals("water") || chosenField.equals("density")) {
                 double field1 = cardsRepository.retrieveDField(country1, chosenField);
                 double field2 = cardsRepository.retrieveDField(country2, chosenField);
                 if (field1 > field2) {
@@ -181,7 +184,7 @@ public class CardsService {
 
             }
         } else { //siit algab teine monster IFIFIFIFIF
-            if (chosenField == "country_name" || chosenField == "capital") {
+            if (chosenField.equals("country_name") || chosenField.equals("capital")) {
                 int field1 = (cardsRepository.retrieveSField(country1, chosenField)).length();
                 int field2 = (cardsRepository.retrieveSField(country2, chosenField)).length();
                 if (field1 < field2) {
@@ -193,7 +196,7 @@ public class CardsService {
                     Integer player2Id = cardsRepository.retrieve2ID(gameId);
                     cardsRepository.writeWinner(player2Id, gameId, cardcount, chosenField);
                 }
-            } else if (chosenField == "hdi" || chosenField == "water" || chosenField == "density") {
+            } else if (chosenField.equals("hdi") || chosenField.equals("water") || chosenField.equals("density")) {
                 double field1 = cardsRepository.retrieveDField(country1, chosenField);
                 double field2 = cardsRepository.retrieveDField(country2, chosenField);
                 if (field1 < field2) {
@@ -218,9 +221,16 @@ public class CardsService {
             }
         }
         cardsRepository.sendChosenField(chosenField, playerId, gameId, cardcount);
+
         return cardsRepository.checkIfInputYes(gameId, cardcount);
+
     }
 
+    public void changeMove(UUID gameId) {
+        int oldMove = cardsRepository.checkMove(gameId);
+        cardsRepository.changeMove(gameId, oldMove);
+
+    }
 
 }
 
